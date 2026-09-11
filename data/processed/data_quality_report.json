@@ -1,0 +1,149 @@
+{
+  "source_scope": {
+    "raw_workbooks": [
+      "附件1.xlsx",
+      "附件2.xlsx",
+      "附件3.xlsx",
+      "附件4.xlsx"
+    ],
+    "excluded_from_inputs": "data/result-data 与 data/csv/result-data 为结果模板或既有结果，不作为原始输入。",
+    "sha256": {
+      "附件1.xlsx": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377",
+      "附件2.xlsx": "2e95fd446bfafa0d8c59577b5c2e2ea8b3f1def20dde54a3062556f4da9b4c72",
+      "附件3.xlsx": "8a61b06c52bd0d639a1cc37c61a7d9f5b75edcbca718f64c1bd3498ec9f9d843",
+      "附件4.xlsx": "20e9c93aeab5e8e21ae4dd15587f9e190f7408692504c1319598461cd654fe71"
+    }
+  },
+  "preprocessing_decision": "需要结构性预处理；不需要删行、异常值替换或数值插补。",
+  "transformations": [
+    "统一附件1混合时间类型，并把0:00+1标准化为24:00。",
+    "将附件2和附件4的365×144宽表转为10分钟长表并按键一一合并。",
+    "将附件3每日空白日期按四个发布时刻的版式向下补全，再把24个预测字段转成长表。",
+    "按E=P×(10/60)生成负载和光伏电量字段，原始功率值保持不变。",
+    "用发布时刻实际光伏功率作为0小时锚点，对小时预测作线性插值，生成10分钟对齐版本；同时保留未插值的小时长表。"
+  ],
+  "assumptions_applied_in_preprocessing": {
+    "time_semantics": "00:10至24:00均解释为前一个10分钟区间的结束时刻。",
+    "power_to_energy": "每个10分钟内功率按区间常值处理，因此kWh=kW×1/6小时。",
+    "forecast_interpolation": "0小时采用发布时刻实际光伏功率，1至24小时采用附件3预测点，点间线性插值。",
+    "first_anchor": "2025-01-01 00:00无上一日24:00观测，取0 kW；该时刻为夜间，且其随后小时预测为0。"
+  },
+  "checks": {
+    "typical_day": {
+      "rows": 144,
+      "columns": 11,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "nonfinite_values": 0,
+      "negative_values": 0,
+      "value_ranges": {
+        "electricity_price_yuan_per_kwh": {
+          "min": 0.3713,
+          "max": 1.3952
+        },
+        "load_kw": {
+          "min": 3309.3934,
+          "max": 5958.9696
+        },
+        "pv_forecast_kw": {
+          "min": 0.0,
+          "max": 7612.316
+        }
+      }
+    },
+    "year_actuals_tariff": {
+      "rows": 52560,
+      "columns": 10,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "nonfinite_values": 0,
+      "negative_values": 0,
+      "value_ranges": {
+        "load_kw": {
+          "min": 1995.7176,
+          "max": 7978.8849
+        },
+        "pv_actual_kw": {
+          "min": 0.0,
+          "max": 10216.2
+        },
+        "electricity_price_yuan_per_kwh": {
+          "min": 0.0076,
+          "max": 1.7936
+        }
+      }
+    },
+    "hourly_forecasts": {
+      "rows": 35040,
+      "columns": 6,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "nonfinite_values": 0,
+      "negative_values": 0,
+      "value_ranges": {
+        "pv_forecast_kw": {
+          "min": 0.0,
+          "max": 9995.8875
+        }
+      }
+    },
+    "ten_minute_forecasts": {
+      "rows": 210240,
+      "columns": 7,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "nonfinite_values": 0,
+      "negative_values": 0,
+      "value_ranges": {
+        "pv_forecast_kw": {
+          "min": 0.0,
+          "max": 9995.8875
+        },
+        "anchor_pv_actual_kw": {
+          "min": 0.0,
+          "max": 9995.8875
+        }
+      }
+    },
+    "assumed_zero_anchor_count": 1,
+    "actuals_date_range": [
+      "2025-01-01",
+      "2025-12-31"
+    ],
+    "actuals_unique_operating_dates": 365,
+    "forecast_issue_date_range": [
+      "2025-01-01",
+      "2025-12-31"
+    ],
+    "forecast_unique_issue_dates": 365,
+    "forecast_release_times": [
+      "00:00",
+      "06:00",
+      "12:00",
+      "18:00"
+    ],
+    "typical_day_cross_source_consistency": {
+      "electricity_price_max_abs_difference_from_annual_interval_mean": 5.150684931509719e-05,
+      "load_max_abs_difference_from_annual_interval_mean_kw": 5.0410958920110716e-05,
+      "pv_max_abs_difference_from_annual_interval_mean_kw": 0.04310438356164384
+    }
+  },
+  "outputs": {
+    "typical_day_10min.csv": {
+      "rows": 144,
+      "columns": 11
+    },
+    "year_actuals_tariff_10min.csv": {
+      "rows": 52560,
+      "columns": 10
+    },
+    "pv_forecasts_hourly_long.csv": {
+      "rows": 35040,
+      "columns": 6
+    },
+    "pv_forecasts_10min_linear.csv": {
+      "rows": 210240,
+      "columns": 7
+    }
+  }
+}

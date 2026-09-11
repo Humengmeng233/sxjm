@@ -1,0 +1,24 @@
+{
+  "provided": {
+    "storage_nameplate_capacity_kwh": 12000,
+    "storage_operating_min_kwh": 1200,
+    "storage_operating_max_kwh": 10800,
+    "storage_max_charge_discharge_power_kw": 5000,
+    "storage_initial_energy_2025_01_01_00_00_kwh": 6000,
+    "charge_discharge_efficiency": 0.9,
+    "emergency_purchase_price_multiplier": 5.0,
+    "down_adjustment_breach_price_multiplier": 0.5,
+    "up_adjustment_increment_price_multiplier": 1.5
+  },
+  "derived": {
+    "dispatch_interval_minutes": 10,
+    "dispatch_interval_hours": 0.16666666666666666,
+    "max_charge_discharge_energy_per_interval_kwh": 833.3333333333333
+  },
+  "modeling_assumptions_not_applied_to_source_values": {
+    "efficiency_convention": "充电效率与放电效率分别取0.90；题面使用‘充放电效率为90%’，按双向过程同一效率解释。",
+    "state_continuity": "问题2至4逐日滚动时，前一日24:00储电量作为次日0:00储电量；仅问题1强制日初日末相等。",
+    "simultaneous_charge_discharge": "同一10分钟时段不允许同时充电和放电，符合单一储能设备物理逻辑。",
+    "grid_export": "题面只定义购电及其费用，未定义售电收益，故外网购电量不取负值；光伏富余可弃光或充电。"
+  }
+}
