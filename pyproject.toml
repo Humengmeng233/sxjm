@@ -16,6 +16,8 @@ dependencies = [
 
 [project.scripts]
 sxjm = "sxjm:main"
+solve-c-models = "sxjm.solve_all_models:main"
+solve-c-verified = "sxjm.solve_verified_models:main"
 
 [build-system]
 requires = ["uv_build>=0.12.9,<0.13.0"]

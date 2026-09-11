@@ -1,0 +1,45 @@
+{
+  "source_files_unchanged": true,
+  "python_version": "3.12.14",
+  "scipy_version": "1.18.1",
+  "numpy_version": "2.5.3",
+  "workbooks": [
+    {
+      "file": "result1.xlsx",
+      "all_data_reconciled": true,
+      "formulas": 0,
+      "cached_results_verified": true,
+      "sheets": 3
+    },
+    {
+      "file": "result2.xlsx",
+      "all_data_reconciled": true,
+      "formulas": 334,
+      "cached_results_verified": true,
+      "sheets": 4
+    },
+    {
+      "file": "result3.xlsx",
+      "all_data_reconciled": true,
+      "formulas": 668,
+      "cached_results_verified": true,
+      "sheets": 5
+    },
+    {
+      "file": "result4-2.xlsx",
+      "all_data_reconciled": true,
+      "formulas": 334,
+      "cached_results_verified": true,
+      "sheets": 4
+    },
+    {
+      "file": "result4-3.xlsx",
+      "all_data_reconciled": true,
+      "formulas": 668,
+      "cached_results_verified": true,
+      "sheets": 5
+    }
+  ],
+  "artifact_recalculation_and_mutation_test": true,
+  "sensitivity_snapshot_count": 24
+}

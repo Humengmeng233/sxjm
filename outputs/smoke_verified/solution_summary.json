@@ -1,0 +1,312 @@
+{
+  "version": "finite_support_dro_v2",
+  "partial": true,
+  "parameters": {
+    "step_hours": 0.16666666666666666,
+    "storage_min_kwh": 1200.0,
+    "storage_max_kwh": 10800.0,
+    "storage_initial_kwh": 6000.0,
+    "storage_power_kw": 5000.0,
+    "eta_charge": 0.9,
+    "eta_discharge": 0.9,
+    "emergency_price_multiplier": 5.0,
+    "adjustment_up_multiplier": 1.5,
+    "adjustment_down_penalty_multiplier": 0.5,
+    "down_refund_ratio": 0.0,
+    "risk_alpha": 0.8,
+    "conformal_alpha": 0.9,
+    "robustness_radius": 0.15,
+    "recent_window_days": 56,
+    "same_weekday_count": 8,
+    "throughput_penalty_yuan_per_kwh": 1e-06,
+    "gate_confidence_z": 1.645,
+    "gate_min_saving_ratio": 0.001,
+    "gate_emergency_threshold_kwh": 50.0,
+    "gate_required_risk_reduction_ratio": 0.05,
+    "numerical_tolerance": 1e-06,
+    "main_price_information_case": "known_day_ahead",
+    "output_start_date": "2025-02-01",
+    "representative_date": "2025-03-20"
+  },
+  "solver_parameters": {
+    "output": "outputs/smoke_verified",
+    "days": 2,
+    "scenarios": 8,
+    "risk_weight": 0.2,
+    "radius": 0.15,
+    "refund": 0.0,
+    "price_information": "known",
+    "ablations": true
+  },
+  "question1": {
+    "baseline_cost_yuan": 48052.04659044478,
+    "cost_yuan": 35126.94858963718,
+    "max_balance_residual_kwh": 1.1368683772161603e-13,
+    "simultaneous_kwh": 0.0
+  },
+  "models": [
+    {
+      "model": "Q2",
+      "days": 2,
+      "plan_cost_yuan": 98019.76879993538,
+      "adjustment_cost_yuan": 0.0,
+      "emergency_cost_yuan": 90.57658257522871,
+      "total_cost_yuan": 98110.34538251061,
+      "plan_energy_kwh": 155884.16655261535,
+      "emergency_energy_kwh": 17.990374427464758,
+      "charge_energy_kwh": 40647.894738054325,
+      "discharge_energy_kwh": 32924.79473782401,
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "minimum_storage_kwh": 1200.0,
+      "maximum_storage_kwh": 10800.0,
+      "accepted_gate_count": 0
+    },
+    {
+      "model": "Q3",
+      "days": 2,
+      "plan_cost_yuan": 98664.54136439276,
+      "adjustment_cost_yuan": 0.0,
+      "emergency_cost_yuan": 2889.76495994446,
+      "total_cost_yuan": 101554.30632433722,
+      "plan_energy_kwh": 154502.65043864318,
+      "emergency_energy_kwh": 542.8611521750776,
+      "charge_energy_kwh": 33532.063519797615,
+      "discharge_energy_kwh": 27160.97145103607,
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "minimum_storage_kwh": 1200.0000000000005,
+      "maximum_storage_kwh": 10800.0,
+      "accepted_gate_count": 0
+    },
+    {
+      "model": "Q4-2",
+      "days": 2,
+      "plan_cost_yuan": 97842.11317513451,
+      "adjustment_cost_yuan": 0.0,
+      "emergency_cost_yuan": 92.23123460433199,
+      "total_cost_yuan": 97934.34440973884,
+      "plan_energy_kwh": 155810.75313839185,
+      "emergency_energy_kwh": 17.990374427464758,
+      "charge_energy_kwh": 40277.2775091042,
+      "discharge_energy_kwh": 32624.594782374406,
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "minimum_storage_kwh": 1200.0,
+      "maximum_storage_kwh": 10800.0,
+      "accepted_gate_count": 0
+    },
+    {
+      "model": "Q4-3",
+      "days": 2,
+      "plan_cost_yuan": 98876.75393705849,
+      "adjustment_cost_yuan": 0.0,
+      "emergency_cost_yuan": 3194.848131707719,
+      "total_cost_yuan": 102071.60206876621,
+      "plan_energy_kwh": 154507.98178714886,
+      "emergency_energy_kwh": 552.5885176404902,
+      "charge_energy_kwh": 33650.17654962213,
+      "discharge_energy_kwh": 27256.64300519393,
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "minimum_storage_kwh": 1200.0000000000014,
+      "maximum_storage_kwh": 10800.0,
+      "accepted_gate_count": 0
+    },
+    {
+      "model": "Q3-no-update",
+      "days": 2,
+      "plan_cost_yuan": 98664.54136439276,
+      "adjustment_cost_yuan": 0.0,
+      "emergency_cost_yuan": 591.3304882295965,
+      "total_cost_yuan": 99255.87185262235,
+      "plan_energy_kwh": 154502.65043864318,
+      "emergency_energy_kwh": 97.0796968106373,
+      "charge_energy_kwh": 38150.65245765714,
+      "discharge_energy_kwh": 30902.028490702283,
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "minimum_storage_kwh": 1200.0,
+      "maximum_storage_kwh": 10800.0,
+      "accepted_gate_count": 0
+    },
+    {
+      "model": "Q4-3-no-update",
+      "days": 2,
+      "plan_cost_yuan": 98876.75393705849,
+      "adjustment_cost_yuan": 0.0,
+      "emergency_cost_yuan": 616.1395064447029,
+      "total_cost_yuan": 99492.89344350318,
+      "plan_energy_kwh": 154507.98178714886,
+      "emergency_energy_kwh": 95.8072839460084,
+      "charge_energy_kwh": 38150.65245765714,
+      "discharge_energy_kwh": 30902.028490702283,
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "minimum_storage_kwh": 1200.0,
+      "maximum_storage_kwh": 10800.0,
+      "accepted_gate_count": 0
+    }
+  ],
+  "physical_checks": {
+    "Q2": {
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "max_soc_residual_kwh": 8.810729923425242e-13,
+      "max_day_boundary_residual_kwh": 0.0,
+      "max_simultaneous_kwh": 0.0,
+      "min_soc_kwh": 1200.0,
+      "max_soc_kwh": 10800.0,
+      "max_flow_kwh": 833.3333333333333,
+      "max_used_over_plan_kwh": 0.0,
+      "max_spill_over_pv_surplus_kwh": 0.0,
+      "initial_soc_kwh": 6000.0,
+      "final_soc_kwh": 6000.0,
+      "all_finite": true,
+      "max_cost_residual_yuan": 7.275957614183426e-12
+    },
+    "Q3": {
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "max_soc_residual_kwh": 9.094947017729282e-13,
+      "max_day_boundary_residual_kwh": 0.0,
+      "max_simultaneous_kwh": 0.0,
+      "min_soc_kwh": 1200.0000000000005,
+      "max_soc_kwh": 10800.0,
+      "max_flow_kwh": 833.3333333333333,
+      "max_used_over_plan_kwh": 0.0,
+      "max_spill_over_pv_surplus_kwh": 0.0,
+      "initial_soc_kwh": 6000.0,
+      "final_soc_kwh": 6000.000000000002,
+      "all_finite": true,
+      "max_cost_residual_yuan": 0.0
+    },
+    "Q4-2": {
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "max_soc_residual_kwh": 9.094947017729282e-13,
+      "max_day_boundary_residual_kwh": 0.0,
+      "max_simultaneous_kwh": 0.0,
+      "min_soc_kwh": 1200.0,
+      "max_soc_kwh": 10800.0,
+      "max_flow_kwh": 833.3333333333333,
+      "max_used_over_plan_kwh": 0.0,
+      "max_spill_over_pv_surplus_kwh": 0.0,
+      "initial_soc_kwh": 6000.0,
+      "final_soc_kwh": 6000.0,
+      "all_finite": true,
+      "max_cost_residual_yuan": 3.637978807091713e-12
+    },
+    "Q4-3": {
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "max_soc_residual_kwh": 9.094947017729282e-13,
+      "max_day_boundary_residual_kwh": 0.0,
+      "max_simultaneous_kwh": 0.0,
+      "min_soc_kwh": 1200.0000000000014,
+      "max_soc_kwh": 10800.0,
+      "max_flow_kwh": 833.3333333333333,
+      "max_used_over_plan_kwh": 0.0,
+      "max_spill_over_pv_surplus_kwh": 0.0,
+      "initial_soc_kwh": 6000.0,
+      "final_soc_kwh": 5999.999999999999,
+      "all_finite": true,
+      "max_cost_residual_yuan": 3.637978807091713e-12
+    },
+    "Q3-no-update": {
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "max_soc_residual_kwh": 9.094947017729282e-13,
+      "max_day_boundary_residual_kwh": 0.0,
+      "max_simultaneous_kwh": 0.0,
+      "min_soc_kwh": 1200.0,
+      "max_soc_kwh": 10800.0,
+      "max_flow_kwh": 833.3333333333333,
+      "max_used_over_plan_kwh": 0.0,
+      "max_spill_over_pv_surplus_kwh": 0.0,
+      "initial_soc_kwh": 6000.0,
+      "final_soc_kwh": 6000.0,
+      "all_finite": true,
+      "max_cost_residual_yuan": 0.0
+    },
+    "Q4-3-no-update": {
+      "max_balance_residual_kwh": 1.1368683772161603e-13,
+      "max_soc_residual_kwh": 9.094947017729282e-13,
+      "max_day_boundary_residual_kwh": 0.0,
+      "max_simultaneous_kwh": 0.0,
+      "min_soc_kwh": 1200.0,
+      "max_soc_kwh": 10800.0,
+      "max_flow_kwh": 833.3333333333333,
+      "max_used_over_plan_kwh": 0.0,
+      "max_spill_over_pv_surplus_kwh": 0.0,
+      "initial_soc_kwh": 6000.0,
+      "final_soc_kwh": 6000.0,
+      "all_finite": true,
+      "max_cost_residual_yuan": 3.637978807091713e-12
+    }
+  },
+  "workbook_checks": [
+    {
+      "file": "result1.xlsx",
+      "verified": true,
+      "sheets": [
+        "计划购电量",
+        "充放电量",
+        "口径说明"
+      ]
+    },
+    {
+      "file": "result2.xlsx",
+      "verified": true,
+      "sheets": [
+        "计划购电量",
+        "充放电量",
+        "紧急购电量",
+        "口径说明"
+      ]
+    },
+    {
+      "file": "result3.xlsx",
+      "verified": true,
+      "sheets": [
+        "计划购电量",
+        "调整购电量",
+        "充放电量",
+        "紧急购电量",
+        "口径说明"
+      ]
+    },
+    {
+      "file": "result4-2.xlsx",
+      "verified": true,
+      "sheets": [
+        "计划购电量",
+        "充放电量",
+        "紧急购电量",
+        "口径说明"
+      ]
+    },
+    {
+      "file": "result4-3.xlsx",
+      "verified": true,
+      "sheets": [
+        "计划购电量",
+        "调整购电量",
+        "充放电量",
+        "紧急购电量",
+        "口径说明"
+      ]
+    }
+  ],
+  "source_hashes": {
+    "data\\raw-datta\\附件1.xlsx": "66b87134f5ecccd68184d3539bb1293ef039f9e0fdd955a589b9bfa7f227c377",
+    "data\\raw-datta\\附件2.xlsx": "2e95fd446bfafa0d8c59577b5c2e2ea8b3f1def20dde54a3062556f4da9b4c72",
+    "data\\raw-datta\\附件3.xlsx": "8a61b06c52bd0d639a1cc37c61a7d9f5b75edcbca718f64c1bd3498ec9f9d843",
+    "data\\raw-datta\\附件4.xlsx": "20e9c93aeab5e8e21ae4dd15587f9e190f7408692504c1319598461cd654fe71",
+    "data\\result-data\\result1.xlsx": "28360e0974e7d6065394a8aba4e14a86773ae0036cc7d3ea1b211b515b03d688",
+    "data\\result-data\\result2.xlsx": "1c26494cfc6d754e0bd9bff7e13e1126a73d2d2da6c5336eb251d89b9a1a1a47",
+    "data\\result-data\\result3.xlsx": "c59da470cabd0be23f602c95c8aa9d11ec224a0cdac216b3e1f218e65d006bdc",
+    "data\\result-data\\result4-2.xlsx": "1c26494cfc6d754e0bd9bff7e13e1126a73d2d2da6c5336eb251d89b9a1a1a47",
+    "data\\result-data\\result4-3.xlsx": "c59da470cabd0be23f602c95c8aa9d11ec224a0cdac216b3e1f218e65d006bdc",
+    "data\\processed\\pv_forecasts_10min_linear.csv": "555401d96dd407a8db5d02071c0805c932e2a6a891d7dff989e13426264a5abf",
+    "data\\processed\\pv_forecasts_hourly_long.csv": "40a93a45210d11eca2689c8070e493000b638992f4f047a9c18bbce59502b78d",
+    "data\\processed\\typical_day_10min.csv": "4ce94c915f55e1ac42bee69b1de606f44a39755b0de4145359e5327193568395",
+    "data\\processed\\year_actuals_tariff_10min.csv": "b5ba03d513ba1ede8d6764a6bd0cdcd9cd26213ca68b39a47264850bec71870b"
+  },
+  "limitations": [
+    "finite reduced support, not unrestricted Wasserstein support",
+    "common battery controls, not full multistage recourse",
+    "descriptive historical backtest, not pristine holdout or guaranteed conformal coverage",
+    "rho and known-price assumptions require problem-owner confirmation",
+    "formula caches require spreadsheet recalculation"
+  ]
+}
