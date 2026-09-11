@@ -1,0 +1,241 @@
+{
+  "status": "PASS",
+  "method_audit": {
+    "project_root_detection": "自动搜索 data/raw-datta，不使用上传路径或硬编码绝对路径",
+    "input_sources": {
+      "attachment_1": "Excel:附件1.xlsx/Sheet1",
+      "attachment_2_load": "Excel:附件2.xlsx/小区负载",
+      "attachment_2_pv": "Excel:附件2.xlsx/光伏发电实际功率",
+      "attachment_4_price": "Excel:附件4.xlsx/Sheet1",
+      "attachment_3": "Excel:附件3.xlsx/Sheet1"
+    },
+    "numeric_missing": {
+      "electricity_price_yuan_per_kwh": {
+        "before": 0,
+        "filled": 0,
+        "remaining": 0,
+        "method": "无需填充"
+      },
+      "load_kw": {
+        "before": 0,
+        "filled": 0,
+        "remaining": 0,
+        "method": "无需填充"
+      },
+      "pv_forecast_kw": {
+        "before": 0,
+        "filled": 0,
+        "remaining": 0,
+        "method": "无需填充"
+      },
+      "pv_actual_kw": {
+        "before": 0,
+        "filled": 0,
+        "remaining": 0,
+        "method": "无需填充"
+      }
+    },
+    "anomaly_detection": {
+      "physical_invalid_count": 0,
+      "method": "连续数值采用极端 Tukey 围栏：Q1-3.0×IQR 至 Q3+3.0×IQR；同时执行物理边界检查",
+      "candidate_counts": {
+        "load_kw": 0,
+        "pv_actual_kw": 0,
+        "electricity_price_yuan_per_kwh": 0
+      },
+      "correction_or_deletion": "未执行；候选峰谷仍满足物理边界，可能是真实天气、负载或市场波动"
+    },
+    "structural_missing": {
+      "field": "附件3.日期",
+      "before": 1095,
+      "filled": 1095,
+      "remaining": 0,
+      "method": "按每日 0:00、6:00、12:00、18:00 四行版式前向填充"
+    },
+    "forecast_alignment": {
+      "method": "发布时刻实际值作为 0 小时锚点，相邻小时预测点线性插值到 10 分钟",
+      "first_boundary_zero_anchor_count": 1,
+      "categorical_encoding": "issue_time 使用 One-Hot；未使用标签编码",
+      "max_hourly_anchor_error_kw": 0.0
+    },
+    "feature_engineering": {
+      "output_start": "2025-02-01",
+      "warmup_period": "2025-01-01 至 2025-01-31",
+      "continuous_features": [
+        "net_load_kw",
+        "power_to_energy",
+        "10min/1h/1d lags",
+        "1h/24h trailing means",
+        "PV ramp",
+        "price change"
+      ],
+      "cyclical_features": [
+        "time_sin",
+        "time_cos",
+        "year_sin",
+        "year_cos"
+      ],
+      "one_hot_features": [
+        "season_autumn",
+        "season_spring",
+        "season_summer",
+        "season_winter",
+        "weekday_dow_0",
+        "weekday_dow_1",
+        "weekday_dow_2",
+        "weekday_dow_3",
+        "weekday_dow_4",
+        "weekday_dow_5",
+        "weekday_dow_6"
+      ],
+      "label_encoding": "未使用；weekday、season 和 issue_time 均无自然等级顺序",
+      "scaling_scope": "只写入独立 model_features_10min.csv，不改变基础物理量 CSV"
+    }
+  },
+  "data_quality": {
+    "typical_day": {
+      "rows": 144,
+      "columns": 11,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "nonfinite_numeric_cells": 0,
+      "ranges": {
+        "electricity_price_yuan_per_kwh": {
+          "min": 0.3713,
+          "max": 1.3952
+        },
+        "load_kw": {
+          "min": 3309.3934,
+          "max": 5958.9696
+        },
+        "pv_forecast_kw": {
+          "min": 0.0,
+          "max": 7612.316
+        }
+      }
+    },
+    "annual": {
+      "rows": 52560,
+      "columns": 13,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "nonfinite_numeric_cells": 0,
+      "ranges": {
+        "load_kw": {
+          "min": 1995.7176,
+          "max": 7978.8849
+        },
+        "pv_actual_kw": {
+          "min": 0.0,
+          "max": 10216.2
+        },
+        "electricity_price_yuan_per_kwh": {
+          "min": 0.0076,
+          "max": 1.7936
+        }
+      }
+    },
+    "hourly_forecast": {
+      "rows": 35040,
+      "columns": 6,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "nonfinite_numeric_cells": 0,
+      "ranges": {
+        "pv_forecast_kw": {
+          "min": 0.0,
+          "max": 9995.8875
+        }
+      }
+    },
+    "forecast_10min": {
+      "rows": 210240,
+      "columns": 12,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "nonfinite_numeric_cells": 0,
+      "ranges": {
+        "pv_forecast_kw": {
+          "min": 0.0,
+          "max": 9995.8875
+        },
+        "pv_forecast_energy_kwh": {
+          "min": 0.0,
+          "max": 1665.98125
+        }
+      }
+    },
+    "model_features": {
+      "rows": 48096,
+      "columns": 44,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "nonfinite_numeric_cells": 0,
+      "ranges": {
+        "load_kw": {
+          "min": 1995.7176,
+          "max": 7978.8849
+        },
+        "pv_actual_kw": {
+          "min": 0.0,
+          "max": 10216.2
+        },
+        "net_load_kw": {
+          "min": -6601.9911,
+          "max": 6687.7481
+        }
+      }
+    }
+  },
+  "export_validation": {
+    "typical_day_10min.csv": {
+      "status": "PASS",
+      "rows": 144,
+      "columns": 11,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "bytes": 11745,
+      "sha256": "4ce94c915f55e1ac42bee69b1de606f44a39755b0de4145359e5327193568395"
+    },
+    "year_actuals_tariff_10min.csv": {
+      "status": "PASS",
+      "rows": 52560,
+      "columns": 13,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "bytes": 6633256,
+      "sha256": "dc7aefc212a07c7da40d9ab8a004ed727b78163032530f43d9fd4a878a152823"
+    },
+    "pv_forecasts_hourly_long.csv": {
+      "status": "PASS",
+      "rows": 35040,
+      "columns": 6,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "bytes": 2328516,
+      "sha256": "40a93a45210d11eca2689c8070e493000b638992f4f047a9c18bbce59502b78d"
+    },
+    "pv_forecasts_10min_linear.csv": {
+      "status": "PASS",
+      "rows": 210240,
+      "columns": 12,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "bytes": 18802521,
+      "sha256": "58ba13574e2fe6c0256c6d7813cc6eec5e757427d354da284702c7a193a1376d"
+    },
+    "model_features_10min.csv": {
+      "status": "PASS",
+      "rows": 48096,
+      "columns": 44,
+      "duplicate_keys": 0,
+      "missing_cells": 0,
+      "bytes": 16799681,
+      "sha256": "ead36272bd3c8b72896eeda233be732b195b9652759af5a30c4df26970544ba1"
+    }
+  },
+  "figures": [
+    "data\\processed_full\\figures\\all_datasets_before_after.png",
+    "data\\processed_full\\figures\\feature_scaling_before_after.png"
+  ]
+}
